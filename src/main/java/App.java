@@ -53,6 +53,15 @@ public class App {
                 return "message: No Users In The Database";
             }
         });
+        // view departments
+        get("/departments","application/json",(request, response) -> {
+            if(sql2oDepartmentsDao.getAll().size()>0){
+                return gson.toJson(sql2oDepartmentsDao.getAll());
+            }
+            else {
+                return "message: No Departments In The Database";
+            }
+        });
 
         //filters
         exception(ApiException.class, (exception, request, response) -> {
