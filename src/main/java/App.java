@@ -71,6 +71,16 @@ public class App {
                 return "message: No General News In The Database";
             }
         });
+        //view single department - user
+        get("/user/:id/departments","application/json",(request, response) -> {
+            int id=Integer.parseInt(request.params("id"));
+            if(sql2oUsersDao.getAllUserDepartments(id).size()>0){
+                return gson.toJson(sql2oUsersDao.getAllUserDepartments(id));
+            }
+            else {
+                return "message: User Not A member of Any Department";
+            }
+        });
 
         //filters
         exception(ApiException.class, (exception, request, response) -> {
