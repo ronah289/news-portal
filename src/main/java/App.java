@@ -102,6 +102,17 @@ public class App {
                 return "message: Department Has No Users";
             }
         });
+        //view a department's members
+        get("/department/:id","application/json",(request, response) -> {
+            int id=Integer.parseInt(request.params("id"));
+            if(sql2oDepartmentsDao.findById(id)==null){
+                throw new ApiException(404, String.format("No department with the id: \"%s\" exist.",
+                                                          request.params("id")));
+            }
+            else {
+                return gson.toJson(sql2oDepartmentsDao.findById(id));
+            }
+        });
 
         //filters
         exception(ApiException.class, (exception, request, response) -> {
