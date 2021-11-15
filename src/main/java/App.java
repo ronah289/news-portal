@@ -62,6 +62,15 @@ public class App {
                 return "message: No Departments In The Database";
             }
         });
+        //view general news
+        get("/news/general","application/json",(request, response) -> {
+            if(sql2oNewsDao.getAll().size()>0){
+                return gson.toJson(sql2oNewsDao.getAll());
+            }
+            else {
+                return "message: No General News In The Database";
+            }
+        });
 
         //filters
         exception(ApiException.class, (exception, request, response) -> {
