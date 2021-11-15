@@ -113,6 +113,22 @@ public class App {
                 return gson.toJson(sql2oDepartmentsDao.findById(id));
             }
         });
+        //view a department's news
+        get("/news/department/:id","application/json",(request, response) -> {
+
+            int id=Integer.parseInt(request.params("id"));
+            Departments departments=sql2oDepartmentsDao.findById(id);
+            if(departments==null){
+                throw new ApiException(404, String.format("No department with the id: \"%s\" exist.",
+                                                          request.params("id")));
+            }
+            if(sql2oDepartmentsDao.getDepartmentNews(id).size()>0){
+                return gson.toJson(sql2oDepartmentsDao.getDepartmentNews(id));
+            }
+            else {
+                return "message: No News In This Department";
+            }
+        });
 
         //filters
         exception(ApiException.class, (exception, request, response) -> {
