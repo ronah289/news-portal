@@ -92,6 +92,16 @@ public class App {
                 return gson.toJson(sql2oUsersDao.findById(id));
             }
         });
+        //view users of a department
+        get("/department/:id/users","application/json",(request, response) -> {
+            int id=Integer.parseInt(request.params("id"));
+            if(sql2oDepartmentsDao.getAllUsersInDepartment(id).size()>0){
+                return gson.toJson(sql2oDepartmentsDao.getAllUsersInDepartment(id));
+            }
+            else {
+                return "message: Department Has No Users";
+            }
+        });
 
         //filters
         exception(ApiException.class, (exception, request, response) -> {
