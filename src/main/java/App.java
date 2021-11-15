@@ -81,6 +81,17 @@ public class App {
                 return "message: User Not A member of Any Department";
             }
         });
+        //view details of one user
+        get("/user/:id", "application/json", (request, response) -> {
+            int id=Integer.parseInt(request.params("id"));
+            if(sql2oUsersDao.findById(id)==null){
+                throw new ApiException(404, String.format("No user with the id: \"%s\" exist.",
+                                                          request.params("id")));
+            }
+            else {
+                return gson.toJson(sql2oUsersDao.findById(id));
+            }
+        });
 
         //filters
         exception(ApiException.class, (exception, request, response) -> {
