@@ -43,6 +43,17 @@ public class App {
         sql2oUsersDao=new Sql2oUsersDao(sql2o);
 
 
+        //view users
+        get("/users", "application/json", (request, response) -> {
+
+            if(sql2oDepartmentsDao.getAll().size() > 0){
+                return gson.toJson(sql2oUsersDao.getAll());
+            }
+            else {
+                return "message: No Users In The Database";
+            }
+        });
+
         //filters
         exception(ApiException.class, (exception, request, response) -> {
             Map<String, Object> jsonMap = new HashMap<>();
