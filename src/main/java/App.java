@@ -35,7 +35,7 @@ public class App {
         Gson gson = new Gson();
 
         //local server
-        String connectionString = "jdbc:postgresql://localhost:5432/Rest_API";
+        String connectionString = "jdbc:postgresql://localhost:5432/rest_api";
         Sql2o sql2o = new Sql2o(connectionString, "moringa", "password");
 
         sql2oDepartmentsDao=new Sql2oDepartmentsDao(sql2o);
